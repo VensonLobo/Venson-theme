@@ -1,6 +1,7 @@
 import type {NextConfig} from 'next';
 
 const isStaticExport = process.env.STATIC_EXPORT === 'true';
+process.env.REACT_EDITOR = process.env.REACT_EDITOR || 'none';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,

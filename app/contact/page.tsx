@@ -146,7 +146,7 @@ export default function ContactPage() {
                         Direct Lines:
                       </strong>
                       {COMPANY_DETAILS.phones.map((phone) => (
-                        <div key={phone.number} className="flex items-center justify-between text-xs">
+                        <div key={phone.id || phone.label} className="flex items-center justify-between text-xs">
                           <span className="text-stone-500">{phone.label}:</span>
                           <a
                             href={`tel:${phone.number}`}

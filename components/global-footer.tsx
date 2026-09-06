@@ -162,7 +162,7 @@ export function GlobalFooter() {
               <div className="space-y-1 pt-1">
                 <p className="text-stone-400 font-semibold uppercase tracking-widest text-[10px]">Direct Phone Lines:</p>
                 {COMPANY_DETAILS.phones.map((phone) => (
-                  <div key={phone.number} className="flex items-center justify-between">
+                  <div key={phone.id || phone.label} className="flex items-center justify-between">
                     <span className="text-stone-400">{phone.label}:</span>
                     <a
                       href={`tel:${phone.number}`}
