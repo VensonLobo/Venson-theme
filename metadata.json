@@ -1,0 +1,6 @@
+{
+  "name": "Lobo Travels",
+  "description": "Curated journeys and bespoke travel experiences across India by Lobo Travels, Mandir Marg, New Delhi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

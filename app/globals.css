@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --bg-sand: #F7F5F2;
+    --navy-dark: #0A1128;
+    --gold-accent: #C5A059;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Geometric Balance scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F5F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #C5A059;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A6833D;
+}
+

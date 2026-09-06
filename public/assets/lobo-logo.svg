@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" width="600" height="220" fill="none">
+  <!-- Group in white for dark/navy backgrounds -->
+  <g fill="#FFFFFF">
+    
+    <!-- 1. Upper-Right & Bottom Orbital Flight Swoosh -->
+    <!-- Originates near airplane nose (x~380, y~26), loops over and around the right side of the logo, then sweeps along the bottom to the far left -->
+    <path d="M 376,28 
+             C 430,20 505,32 546,65 
+             C 582,94 592,128 576,155 
+             C 555,188 495,206 410,210 
+             C 320,214 210,210 115,198 
+             C 70,192 38,184 18,172 
+             C 14,170 14,168 18,168 
+             C 45,170 100,178 180,183 
+             C 270,188 385,189 460,178 
+             C 515,170 550,150 558,128 
+             C 564,110 550,88 522,68 
+             C 485,42 425,32 376,28 Z" />
+
+    <!-- 2. Upper-Left & Under-LOBO Swoosh -->
+    <!-- Originates at sharp tip at top-left, curves around left of 'L', and sweeps rightward beneath 'LOBO' (above TRAVELS) -->
+    <path d="M 125,50 
+             C 85,62 55,84 42,108 
+             C 32,126 36,142 52,150 
+             C 68,158 105,160 160,159 
+             C 230,158 320,154 415,148 
+             C 455,145 480,142 490,140 
+             C 480,142 440,148 395,152 
+             C 310,158 220,161 150,160 
+             C 105,159 75,156 64,148 
+             C 54,141 52,130 58,118 
+             C 68,98 96,78 135,62 
+             C 140,60 135,55 125,50 Z" />
+
+    <!-- 3. Contrails behind airplane (2 tapered streaks) -->
+    <polygon points="265,48 215,58 230,54 265,48" opacity="0.9" />
+    <polygon points="205,60 168,67 180,64 205,60" opacity="0.75" />
+
+    <!-- 4. Executive Light Aircraft Silhouette flying upward-right at ~22 deg -->
+    <g transform="translate(260, 10) rotate(-18) scale(0.65)">
+      <!-- Fuselage -->
+      <path d="M 15,48 
+               L 45,38 
+               L 95,33 
+               L 150,31 
+               C 165,31 178,36 186,43 
+               L 194,43 
+               L 194,39 
+               L 191,33 
+               L 196,33 
+               L 196,48 
+               L 191,48 
+               L 191,44 
+               L 175,47 
+               L 135,49 
+               L 90,62 
+               L 65,60 
+               L 80,50 
+               L 25,58 
+               Z" />
+      
+      <!-- High Wing (Parasol style) -->
+      <path d="M 85,34 L 105,2 L 128,2 L 115,33 Z" />
+      
+      <!-- Right/Under Wing & Struts -->
+      <path d="M 90,48 L 118,78 L 132,77 L 112,49 Z" />
+
+      <!-- Horizontal Stabilizer & Elevator -->
+      <path d="M 28,42 L 18,22 L 32,22 L 44,40 Z" />
+
+      <!-- Vertical Tail Fin -->
+      <path d="M 20,44 L 8,20 L 22,20 L 34,42 Z" />
+
+      <!-- Tricycle Landing Gear & Wheels -->
+      <!-- Nose Wheel -->
+      <line x1="165" y1="47" x2="165" y2="60" stroke="#FFFFFF" stroke-width="3" />
+      <circle cx="165" cy="62" r="4.5" fill="#FFFFFF" />
+      <!-- Main Gear -->
+      <line x1="105" y1="52" x2="98" y2="68" stroke="#FFFFFF" stroke-width="3" />
+      <circle cx="97" cy="71" r="5.5" fill="#FFFFFF" />
+      <line x1="120" y1="50" x2="114" y2="66" stroke="#FFFFFF" stroke-width="3" />
+      <circle cx="113" cy="69" r="5" fill="#FFFFFF" />
+
+      <!-- Spinning Propeller Blades at Nose -->
+      <ellipse cx="195" cy="41" rx="2" ry="16" fill="#FFFFFF" />
+    </g>
+
+    <!-- 5. "LOBO" Bold Futuristic Extended Display Typography -->
+    <!-- Total width approx 360px (x=105 to x=465), baseline at y=138 -->
+    <!-- Letter L -->
+    <path d="M 105,74 
+             H 140 
+             V 118 
+             H 178 
+             L 178,138 
+             H 105 
+             Z" />
+
+    <!-- Letter O (First O) -->
+    <path d="M 200,74 
+             H 254 
+             C 268,74 276,82 276,96 
+             V 116 
+             C 276,130 268,138 254,138 
+             H 200 
+             C 186,138 178,130 178,116 
+             V 96 
+             C 178,82 186,74 200,74 Z 
+             M 214,94 
+             V 118 
+             H 240 
+             V 94 
+             Z" 
+          fill-rule="evenodd" />
+
+    <!-- Letter B -->
+    <path d="M 292,74 
+             H 342 
+             C 356,74 364,80 364,92 
+             C 364,100 358,104 350,105 
+             C 360,106 366,112 366,121 
+             C 366,132 357,138 342,138 
+             H 292 
+             Z 
+             M 324,89 
+             H 334 
+             C 338,89 341,91 341,94 
+             C 341,97 338,99 334,99 
+             H 324 
+             Z 
+             M 324,113 
+             H 336 
+             C 340,113 343,115 343,119 
+             C 343,123 340,125 336,125 
+             H 324 
+             Z" 
+          fill-rule="evenodd" />
+
+    <!-- Letter O (Second O) -->
+    <path d="M 388,74 
+             H 442 
+             C 456,74 464,82 464,96 
+             V 116 
+             C 464,130 456,138 442,138 
+             H 388 
+             C 374,138 366,130 366,116 
+             V 96 
+             C 366,82 374,74 388,74 Z 
+             M 402,94 
+             V 118 
+             H 428 
+             V 94 
+             Z" 
+          fill-rule="evenodd" />
+
+    <!-- 6. "TRAVELS" Wordmark in Wide-Tracked Aerospace Sans -->
+    <!-- Positioned below swoosh 2, centered at x=105 to x=465, baseline at y=182 -->
+    <!-- T -->
+    <path d="M 106,168 H 136 V 174 H 124 V 192 H 118 V 174 H 106 Z" />
+    
+    <!-- R -->
+    <path d="M 154,168 H 174 C 182,168 186,171 186,176 C 186,180 183,183 177,184 L 187,192 H 179 L 171,185 H 161 V 192 H 154 Z M 161,173 V 180 H 173 C 177,180 179,178 179,176 C 179,174 177,173 173,173 Z" fill-rule="evenodd" />
+
+    <!-- A -->
+    <path d="M 206,192 L 219,168 H 227 L 240,192 H 232 L 229,186 H 217 L 214,192 Z M 220,181 H 226 L 223,174 Z" fill-rule="evenodd" />
+
+    <!-- V -->
+    <path d="M 258,168 H 266 L 277,192 H 270 L 262,174 L 254,192 H 247 Z" />
+
+    <!-- E -->
+    <path d="M 298,168 H 322 V 173 H 305 V 177 H 319 V 182 H 305 V 187 H 323 V 192 H 298 Z" />
+
+    <!-- L -->
+    <path d="M 342,168 H 349 V 187 H 368 V 192 H 342 Z" />
+
+    <!-- S -->
+    <path d="M 390,172 C 390,169 394,168 400,168 H 410 C 416,168 420,171 420,175 C 420,181 413,182 405,184 C 397,185 391,187 391,191 C 391,195 395,198 402,198 H 412 C 418,198 422,195 422,191 H 415 C 415,193 413,194 409,194 H 402 C 398,194 396,192 396,190 C 396,186 401,185 408,183 C 416,182 423,180 423,174 C 423,169 418,165 410,165 H 399 C 392,165 385,168 385,174 Z" />
+
+    <!-- 7. Horizontal Underline beneath TRAVELS -->
+    <rect x="105" y="196" width="320" height="3.5" rx="1.75" />
+
+  </g>
+</svg>

@@ -1,0 +1,99 @@
+# ----------------------------------------------------------------------
+# Lobo Travels - Web Server Configuration (.htaccess)
+# Ensures website loads immediately upon repository deployment
+# ----------------------------------------------------------------------
+
+# Priority order for index files: root index.html first, then out/index.html, then index.php
+DirectoryIndex index.html out/index.html index.php
+
+# Prevent directory listing error (403 Forbidden) while allowing file access
+Options -Indexes +FollowSymLinks
+
+# Grant public access (prevents 403 Forbidden on Apache 2.4+)
+<IfModule mod_authz_core.c>
+    Require all granted
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Allow from all
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Allow direct access to Next.js static chunks without 403 or blocking
+    RewriteCond %{REQUEST_URI} ^/_next/ [NC,OR]
+    RewriteCond %{REQUEST_URI} ^/out/_next/ [NC]
+    RewriteRule .* - [L]
+
+    # Serve existing files or directories directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Direct asset checks across public/ and out/ directories
+    RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f
+    RewriteRule ^(.*)$ public/$1 [L]
+
+    RewriteCond %{DOCUMENT_ROOT}/out%{REQUEST_URI} -f
+    RewriteRule ^(.*)$ out/$1 [L]
+
+    RewriteCond %{REQUEST_URI} ^/assets/(.*)$
+    RewriteCond %{DOCUMENT_ROOT}/public/assets/%1 -f
+    RewriteRule ^assets/(.*)$ public/assets/$1 [L]
+
+    RewriteCond %{REQUEST_URI} ^/assets/(.*)$
+    RewriteCond %{DOCUMENT_ROOT}/out/assets/%1 -f
+    RewriteRule ^assets/(.*)$ out/assets/$1 [L]
+
+    RewriteCond %{REQUEST_URI} ^/assets/(.*)$
+    RewriteCond %{DOCUMENT_ROOT}/assets/%1 -f
+    RewriteRule ^assets/(.*)$ assets/$1 [L]
+
+    # Check for HTML file matching URL (e.g. /about -> /about/index.html or /about.html)
+    RewriteCond %{REQUEST_FILENAME}/index.html -f
+    RewriteRule ^(.*)$ $1/index.html [L]
+
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^(.*)$ $1.html [L]
+
+    # If static export is in out/ folder, check matching out/ paths
+    RewriteCond %{DOCUMENT_ROOT}/out%{REQUEST_URI}/index.html -f
+    RewriteRule ^(.*)$ out/$1/index.html [L]
+
+    RewriteCond %{DOCUMENT_ROOT}/out%{REQUEST_URI}.html -f
+    RewriteRule ^(.*)$ out/$1.html [L]
+
+    # Fallback to 404.html only for web pages (NEVER for images or static assets)
+    RewriteCond %{REQUEST_URI} !\.(png|jpe?g|gif|svg|webp|ico|css|js|mjs|woff2?|ttf|eot|json)$ [NC]
+    RewriteCond %{DOCUMENT_ROOT}/404.html -f
+    RewriteRule . /404.html [L]
+</IfModule>
+
+# MIME types for modern web assets
+<IfModule mod_mime.c>
+    AddType text/html .html
+    AddType text/css .css
+    AddType application/javascript .js .mjs
+    AddType application/json .json
+    AddType image/svg+xml .svg
+    AddType image/webp .webp
+    AddType image/png .png
+    AddType image/jpeg .jpg .jpeg
+    AddType font/woff2 .woff2
+    AddType font/woff .woff
+</IfModule>
+
+# Browser caching for performance
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
