@@ -18,9 +18,9 @@ export function BrandLogo({
   const [currentSrc, setCurrentSrc] = useState<string>(LOBO_LOGO_SRC);
 
   const sizeClasses = {
-    sm: 'h-8 sm:h-9 max-w-[140px]',
-    md: 'h-11 sm:h-12 max-w-[190px]',
-    lg: 'h-13 sm:h-14 max-w-[220px]',
+    sm: 'h-8 sm:h-9 max-w-[150px]',
+    md: 'h-10 sm:h-12 max-w-[200px]',
+    lg: 'h-12 sm:h-14 max-w-[240px]',
   }[size];
 
   return (
@@ -29,8 +29,8 @@ export function BrandLogo({
       <img
         src={currentSrc}
         alt="Lobo Travels"
-        width={240}
-        height={88}
+        width={250}
+        height={92}
         className={`w-auto object-contain object-left transition-transform duration-300 group-hover:scale-105 ${sizeClasses}`}
         loading="eager"
         decoding="sync"

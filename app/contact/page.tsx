@@ -4,6 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { GlobalHeader } from '@/components/global-header';
 import { GlobalFooter } from '@/components/global-footer';
 import { COMPANY_DETAILS } from '@/lib/data';
+import { submitEnquiryToSheet } from '@/lib/sheets';
 import {
   FORM_DESTINATION_GROUPS,
   ADULT_OPTIONS,
@@ -42,7 +43,7 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -57,24 +58,26 @@ export default function ContactPage() {
       formData.children !== '0 Children' ? `, ${formData.children}` : ''
     }`;
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      try {
-        const stored = JSON.parse(localStorage.getItem('lobo_enquiries') || '[]');
-        stored.push({
-          ...formData,
-          travelDates: datesString,
-          travelers: travelersString,
-          source: 'contact_page',
-          submittedAt: new Date().toISOString(),
-          id: 'LT-' + Math.floor(100000 + Math.random() * 900000),
-        });
-        localStorage.setItem('lobo_enquiries', JSON.stringify(stored));
-      } catch (err) {
-        console.error(err);
-      }
-    }, 600);
+    const enquiryId = 'LT-' + Math.floor(100000 + Math.random() * 900000);
+
+    await submitEnquiryToSheet({
+      id: enquiryId,
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      destination: formData.destination,
+      fromDate: formData.fromDate,
+      toDate: formData.toDate,
+      travelDates: datesString,
+      adults: formData.adults,
+      children: formData.children,
+      travelers: travelersString,
+      requirements: formData.message,
+      source: 'Contact Page Inquiry Form',
+    });
+
+    setIsSubmitting(false);
+    setSubmitted(true);
   };
 
   const getWhatsAppUrl = () => {

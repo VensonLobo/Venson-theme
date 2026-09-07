@@ -18,7 +18,6 @@ import {
   Send,
   MessageCircle,
   Clock,
-  Sparkles,
   ChevronDown,
 } from 'lucide-react';
 
@@ -122,7 +121,7 @@ function EnquiryModalForm({
     return diffDays;
   }, [formData.fromDate, formData.toDate]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -136,31 +135,26 @@ function EnquiryModalForm({
         ? `From ${formData.fromDate}`
         : 'Flexible dates';
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      try {
-        const storedLeads = JSON.parse(localStorage.getItem('lobo_enquiries') || '[]');
-        storedLeads.push({
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          destination: formData.destination,
-          fromDate: formData.fromDate,
-          toDate: formData.toDate,
-          travelDates: datesString,
-          adults: formData.adults,
-          children: formData.children,
-          travelers: travelersString,
-          requirements: formData.requirements,
-          submittedAt: new Date().toISOString(),
-          id: 'LT-' + Math.floor(100000 + Math.random() * 900000),
-        });
-        localStorage.setItem('lobo_enquiries', JSON.stringify(storedLeads));
-      } catch (err) {
-        console.error('Storage error', err);
-      }
-    }, 500);
+    const enquiryId = 'LT-' + Math.floor(100000 + Math.random() * 900000);
+
+    await submitEnquiryToSheet({
+      id: enquiryId,
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      destination: formData.destination,
+      fromDate: formData.fromDate,
+      toDate: formData.toDate,
+      travelDates: datesString,
+      adults: formData.adults,
+      children: formData.children,
+      travelers: travelersString,
+      requirements: formData.requirements,
+      source: 'Plan Trip Consultation Modal',
+    });
+
+    setIsSubmitting(false);
+    setSubmitted(true);
   };
 
   const generateWhatsAppUrl = (includeFormData = true) => {
@@ -305,20 +299,6 @@ function EnquiryModalForm({
                OPTION 1: CALL & WHATSAPP INSTANT REACH
                ======================================================== */
             <div className="space-y-4">
-              <div className="bg-[#FAF7F2] border border-[#C5A059]/30 p-3.5 flex items-start gap-3">
-                <div className="p-2 bg-[#0A1128] text-[#C5A059] shrink-0 mt-0.5">
-                  <Sparkles className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-[#0A1128]">
-                    Direct Travel Desk • Zero Wait Time
-                  </h4>
-                  <p className="text-xs text-stone-600 mt-0.5 leading-relaxed">
-                    Connect directly with our senior travel designer in New Delhi for instant quotes, route recommendations, hotel availability, and transparent pricing.
-                  </p>
-                </div>
-              </div>
-
               {/* Call Option Card */}
               <div className="border border-stone-200 p-4 bg-white hover:border-[#C5A059] transition-all">
                 <div className="flex items-center justify-between mb-2">

@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { COMPANY_DETAILS } from '@/lib/data';
+import { submitEnquiryToSheet } from '@/lib/sheets';
 import {
   FORM_DESTINATION_GROUPS,
   ADULT_OPTIONS,
@@ -38,7 +39,7 @@ export function HomeEnquirySection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -53,24 +54,26 @@ export function HomeEnquirySection() {
       formData.children !== '0 Children' ? `, ${formData.children}` : ''
     }`;
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      try {
-        const stored = JSON.parse(localStorage.getItem('lobo_enquiries') || '[]');
-        stored.push({
-          ...formData,
-          travelDates: datesString,
-          travelers: travelersString,
-          source: 'home_lead_form',
-          submittedAt: new Date().toISOString(),
-          id: 'LT-' + Math.floor(100000 + Math.random() * 900000),
-        });
-        localStorage.setItem('lobo_enquiries', JSON.stringify(stored));
-      } catch (err) {
-        console.error(err);
-      }
-    }, 600);
+    const enquiryId = 'LT-' + Math.floor(100000 + Math.random() * 900000);
+
+    await submitEnquiryToSheet({
+      id: enquiryId,
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      destination: formData.destination,
+      fromDate: formData.fromDate,
+      toDate: formData.toDate,
+      travelDates: datesString,
+      adults: formData.adults,
+      children: formData.children,
+      travelers: travelersString,
+      requirements: formData.requirements,
+      source: 'Homepage Instant Enquiry Form',
+    });
+
+    setIsSubmitting(false);
+    setSubmitted(true);
   };
 
   const getWhatsAppUrl = () => {
