@@ -1,6 +1,7 @@
 import type {NextConfig} from 'next';
 
 process.env.REACT_EDITOR = process.env.REACT_EDITOR || 'none';
+const isExport = process.env.NEXT_EXPORT === 'true';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -10,8 +11,11 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  output: isExport ? 'export' : undefined,
+  trailingSlash: isExport,
   // Allow access to remote image placeholder.
   images: {
+    unoptimized: isExport,
     remotePatterns: [
       {
         protocol: 'https',
