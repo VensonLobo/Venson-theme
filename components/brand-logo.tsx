@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { LOBO_LOGO_SRC, LOBO_LOGO_BASE64 } from '@/lib/logo-data';
 
 interface BrandLogoProps {
   variant?: 'light' | 'dark' | 'white';
@@ -15,8 +14,6 @@ export function BrandLogo({
   className = '',
   size = 'md',
 }: BrandLogoProps) {
-  const [currentSrc, setCurrentSrc] = useState<string>(LOBO_LOGO_SRC);
-
   const sizeClasses = {
     sm: 'h-8 sm:h-9 max-w-[150px]',
     md: 'h-10 sm:h-12 max-w-[200px]',
@@ -25,21 +22,14 @@ export function BrandLogo({
 
   return (
     <div className={`inline-flex items-center select-none ${className}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={currentSrc}
+        src="/lobotravels-all-whitelogo.png"
         alt="Lobo Travels"
         width={250}
         height={92}
         className={`w-auto object-contain object-left transition-transform duration-300 group-hover:scale-105 ${sizeClasses}`}
         loading="eager"
         decoding="sync"
-        onError={() => {
-          // If server path or URL fails to load, immediately switch to the embedded PNG data
-          if (currentSrc !== LOBO_LOGO_BASE64) {
-            setCurrentSrc(LOBO_LOGO_BASE64);
-          }
-        }}
       />
     </div>
   );
