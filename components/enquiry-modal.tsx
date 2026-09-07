@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { COMPANY_DETAILS } from '@/lib/data';
+import { submitEnquiryToSheet } from '@/lib/sheets';
 import {
   FORM_DESTINATION_GROUPS,
   ADULT_OPTIONS,
