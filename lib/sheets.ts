@@ -15,6 +15,10 @@ export interface EnquiryData {
   submittedAt?: string;
 }
 
+export const GOOGLE_SHEET_WEBHOOK_URL =
+  process.env.NEXT_PUBLIC_GOOGLE_SHEET_WEBHOOK_URL ||
+  'https://script.google.com/macros/s/AKfycbwkbuXeIWrgBeVEvCaYR9VWXIi0IdJjYljvqvgyhL77nImqhy2JzTY8FIHZnnbuNq0s/exec';
+
 /**
  * Submits enquiry responses to Google Sheets via Google Apps Script Web App / Webhook,
  * while maintaining a local backup in localStorage so inquiries are never lost.
@@ -40,34 +44,57 @@ export async function submitEnquiryToSheet(data: EnquiryData): Promise<{ success
     console.warn('LocalStorage backup warning:', err);
   }
 
-  // 2. Google Apps Script Webhook URL (configured via environment or direct setting)
-  const webhookUrl = process.env.NEXT_PUBLIC_GOOGLE_SHEET_WEBHOOK_URL;
+  // 2. Google Apps Script Webhook URL
+  const webhookUrl = GOOGLE_SHEET_WEBHOOK_URL;
 
   if (webhookUrl && webhookUrl.trim() !== '') {
     try {
-      await fetch(webhookUrl.trim(), {
+      const datesString =
+        data.travelDates ||
+        (data.fromDate && data.toDate
+          ? `${data.fromDate} to ${data.toDate}`
+          : data.fromDate
+          ? `From ${data.fromDate}`
+          : 'Flexible dates');
+
+      const payload = {
+        id: enquiryId,
+        timestamp: formattedTime,
+        name: data.name || '',
+        phone: data.phone || '',
+        email: data.email || '',
+        destination: data.destination || '',
+        travelDates: datesString,
+        fromDate: data.fromDate || '',
+        toDate: data.toDate || '',
+        adults: data.adults || '',
+        children: data.children || '',
+        travelers: data.travelers || '',
+        requirements: data.requirements || '',
+        source: data.source || 'Website Form',
+      };
+
+      // Construct URL with search parameters for scripts that read e.parameter directly
+      let targetUrl = webhookUrl.trim();
+      try {
+        const parsedUrl = new URL(targetUrl);
+        Object.entries(payload).forEach(([key, val]) => {
+          parsedUrl.searchParams.set(key, String(val));
+        });
+        targetUrl = parsedUrl.toString();
+      } catch {
+        // keep original targetUrl if URL parsing fails
+      }
+
+      await fetch(targetUrl, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
           'Content-Type': 'text/plain;charset=utf-8',
         },
-        body: JSON.stringify({
-          id: enquiryId,
-          timestamp: formattedTime,
-          name: data.name || '',
-          phone: data.phone || '',
-          email: data.email || '',
-          destination: data.destination || '',
-          travelDates: data.travelDates || (data.fromDate ? `${data.fromDate} to ${data.toDate || ''}` : 'Flexible'),
-          fromDate: data.fromDate || '',
-          toDate: data.toDate || '',
-          adults: data.adults || '',
-          children: data.children || '',
-          travelers: data.travelers || '',
-          requirements: data.requirements || '',
-          source: data.source || 'Website Form',
-        }),
+        body: JSON.stringify(payload),
       });
+
       return { success: true };
     } catch (err: unknown) {
       console.error('Error sending enquiry to Google Sheet webhook:', err);
