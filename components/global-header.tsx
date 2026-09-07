@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { LogoLink } from './brand-logo';
+import { LogoLink } from './lobotravels-all-whitelogo.png';
 import { COMPANY_DETAILS, CATEGORIES, DESTINATIONS } from '@/lib/data';
 import {
   Phone,
