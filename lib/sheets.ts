@@ -86,29 +86,9 @@ export async function submitEnquiryToSheet(data: EnquiryData): Promise<{ success
     source: data.source || 'Website Form',
   };
 
-  // 2. Primary: Submit via server-side API proxy (/api/enquiry) to avoid browser CORS/adblocker drops
-  let serverSubmitted = false;
-  if (typeof window !== 'undefined') {
-    try {
-      const response = await fetch('/api/enquiry', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-      if (response.ok) {
-        serverSubmitted = true;
-        return { success: true };
-      }
-    } catch (serverErr) {
-      console.warn('Server-side sheet proxy failed, attempting direct webhook submission:', serverErr);
-    }
-  }
-
-  // 3. Fallback: Direct submission to Google Apps Script Webhook
+  // 2. Direct submission to Google Apps Script Webhook
   const webhookUrl = getEffectiveWebhookUrl();
-  if (!serverSubmitted && webhookUrl && webhookUrl.trim() !== '') {
+  if (webhookUrl && webhookUrl.trim() !== '') {
     try {
       let targetUrl = webhookUrl.trim();
       try {
@@ -123,11 +103,11 @@ export async function submitEnquiryToSheet(data: EnquiryData): Promise<{ success
 
       await fetch(targetUrl, {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'text/plain;charset=utf-8',
         },
         body: JSON.stringify(payload),
-        redirect: 'follow',
       });
 
       return { success: true };
