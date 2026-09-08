@@ -48,10 +48,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: '/favicon-lobo.png', type: 'image/png' },
       { url: '/favicon.png', type: 'image/png' },
       { url: '/favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/favicon.png',
+    shortcut: '/favicon-lobo.png',
     apple: '/apple-touch-icon.png',
   },
 };
@@ -64,6 +65,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${jakarta.variable} scroll-smooth`}>
       <head>
+        <link rel="icon" type="image/png" href="/favicon-lobo.png" />
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
