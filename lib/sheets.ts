@@ -15,9 +15,18 @@ export interface EnquiryData {
   submittedAt?: string;
 }
 
-export const GOOGLE_SHEET_WEBHOOK_URL =
-  process.env.NEXT_PUBLIC_GOOGLE_SHEET_WEBHOOK_URL ||
-  'https://script.google.com/macros/s/AKfycbwkbuXeIWrgBeVEvCaYR9VWXIi0IdJjYljvqvgyhL77nImqhy2JzTY8FIHZnnbuNq0s/exec';
+export const DEFAULT_GOOGLE_SHEET_WEBHOOK_URL =
+  'https://script.google.com/macros/s/AKfycbw15ofZxXmGdQXAREZpCpcN_LXR9qqjEqMGR-D1Wf_bdlPA5eIwcsNx-dUBhEsHPXJe/exec';
+
+export function getEffectiveWebhookUrl(): string {
+  const envUrl = process.env.NEXT_PUBLIC_GOOGLE_SHEET_WEBHOOK_URL;
+  if (envUrl && typeof envUrl === 'string' && (envUrl.startsWith('https://script.google.com') || envUrl.startsWith('https://'))) {
+    return envUrl.trim();
+  }
+  return DEFAULT_GOOGLE_SHEET_WEBHOOK_URL;
+}
+
+export const GOOGLE_SHEET_WEBHOOK_URL = getEffectiveWebhookUrl();
 
 /**
  * Submits enquiry responses to Google Sheets via Google Apps Script Web App / Webhook,
@@ -44,43 +53,63 @@ export async function submitEnquiryToSheet(data: EnquiryData): Promise<{ success
     console.warn('LocalStorage backup warning:', err);
   }
 
-  // 2. Google Apps Script Webhook URL
-  const webhookUrl = GOOGLE_SHEET_WEBHOOK_URL;
+  const datesString =
+    data.travelDates ||
+    (data.fromDate && data.toDate
+      ? `${data.fromDate} to ${data.toDate}`
+      : data.fromDate
+      ? `From ${data.fromDate}`
+      : 'Flexible dates');
 
-  if (webhookUrl && webhookUrl.trim() !== '') {
+  // Payload matching the Google Apps Script parameter names:
+  // destination, from_date / fromDate, to_date / toDate, adults, children, full_name / fullName / name, phone / whatsapp
+  const payload = {
+    id: enquiryId,
+    timestamp: formattedTime,
+    destination: data.destination || '',
+    from_date: data.fromDate || '',
+    fromDate: data.fromDate || '',
+    to_date: data.toDate || '',
+    toDate: data.toDate || '',
+    adults: data.adults || '',
+    children: data.children || '',
+    full_name: data.name || '',
+    fullName: data.name || '',
+    name: data.name || '',
+    phone: data.phone || '',
+    whatsapp: data.phone || '',
+    email: data.email || '',
+    travelDates: datesString,
+    travel_dates: datesString,
+    travelers: data.travelers || '',
+    requirements: data.requirements || '',
+    source: data.source || 'Website Form',
+  };
+
+  // 2. Primary: Submit via server-side API proxy (/api/enquiry) to avoid browser CORS/adblocker drops
+  let serverSubmitted = false;
+  if (typeof window !== 'undefined') {
     try {
-      const datesString =
-        data.travelDates ||
-        (data.fromDate && data.toDate
-          ? `${data.fromDate} to ${data.toDate}`
-          : data.fromDate
-          ? `From ${data.fromDate}`
-          : 'Flexible dates');
+      const response = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+      if (response.ok) {
+        serverSubmitted = true;
+        return { success: true };
+      }
+    } catch (serverErr) {
+      console.warn('Server-side sheet proxy failed, attempting direct webhook submission:', serverErr);
+    }
+  }
 
-      const payload = {
-        id: enquiryId,
-        timestamp: formattedTime,
-        name: data.name || '',
-        full_name: data.name || '',
-        fullName: data.name || '',
-        phone: data.phone || '',
-        whatsapp: data.phone || '',
-        email: data.email || '',
-        destination: data.destination || '',
-        travelDates: datesString,
-        travel_dates: datesString,
-        fromDate: data.fromDate || '',
-        from_date: data.fromDate || '',
-        toDate: data.toDate || '',
-        to_date: data.toDate || '',
-        adults: data.adults || '',
-        children: data.children || '',
-        travelers: data.travelers || '',
-        requirements: data.requirements || '',
-        source: data.source || 'Website Form',
-      };
-
-      // Construct URL with search parameters for scripts that read e.parameter directly
+  // 3. Fallback: Direct submission to Google Apps Script Webhook
+  const webhookUrl = getEffectiveWebhookUrl();
+  if (!serverSubmitted && webhookUrl && webhookUrl.trim() !== '') {
+    try {
       let targetUrl = webhookUrl.trim();
       try {
         const parsedUrl = new URL(targetUrl);
@@ -94,11 +123,11 @@ export async function submitEnquiryToSheet(data: EnquiryData): Promise<{ success
 
       await fetch(targetUrl, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
           'Content-Type': 'text/plain;charset=utf-8',
         },
         body: JSON.stringify(payload),
+        redirect: 'follow',
       });
 
       return { success: true };

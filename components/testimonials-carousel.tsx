@@ -41,15 +41,17 @@ export function TestimonialsSection() {
           </div>
 
           <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-            {/* Avatar */}
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 overflow-hidden border-2 border-[#C5A059] flex-shrink-0">
-              <Image
-                src={current.avatar}
-                alt={current.author}
-                fill
-                className="object-cover"
-                sizes="120px"
-              />
+            {/* Traveler Doodle */}
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-[#C5A059] bg-[#FAF8F5] flex-shrink-0 shadow-sm p-1">
+              <div className="relative w-full h-full rounded-full overflow-hidden bg-stone-100">
+                <Image
+                  src={current.avatar}
+                  alt={`${current.author} traveler doodle`}
+                  fill
+                  className="object-cover"
+                  sizes="120px"
+                />
+              </div>
             </div>
 
             {/* Quote and Author */}

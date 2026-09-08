@@ -26,6 +26,7 @@ import {
   MapPin,
 } from 'lucide-react';
 import { EnquiryModal } from './enquiry-modal';
+import { submitEnquiryToSheet } from '@/lib/sheets';
 
 const HERO_SLIDES = [
   {
@@ -78,7 +79,7 @@ export function HeroSection() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleHeroSubmit = (e: React.FormEvent) => {
+  const handleHeroSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -93,24 +94,24 @@ export function HeroSection() {
       formState.children !== '0 Children' ? `, ${formState.children}` : ''
     }`;
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setFormSubmitted(true);
-      try {
-        const stored = JSON.parse(localStorage.getItem('lobo_enquiries') || '[]');
-        stored.push({
-          ...formState,
-          travelDates: datesString,
-          travelers: travelersString,
-          source: 'hero_plan_your_escape',
-          submittedAt: new Date().toISOString(),
-          id: 'LT-' + Math.floor(100000 + Math.random() * 900000),
-        });
-        localStorage.setItem('lobo_enquiries', JSON.stringify(stored));
-      } catch (err) {
-        console.error(err);
-      }
-    }, 600);
+    const enquiryId = 'LT-' + Math.floor(100000 + Math.random() * 900000);
+
+    await submitEnquiryToSheet({
+      id: enquiryId,
+      name: formState.name,
+      phone: formState.phone,
+      destination: formState.destination,
+      fromDate: formState.fromDate,
+      toDate: formState.toDate,
+      travelDates: datesString,
+      adults: formState.adults,
+      children: formState.children,
+      travelers: travelersString,
+      source: 'Hero Plan Your Escape Form',
+    });
+
+    setIsSubmitting(false);
+    setFormSubmitted(true);
   };
 
   return (

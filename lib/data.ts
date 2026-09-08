@@ -103,7 +103,7 @@ export const CATEGORIES: CategoryInfo[] = [
     title: 'Honeymoon',
     headline: 'Intimate Retreats, Candlelit Evenings & Private Vistas',
     description: 'Luxury heritage palace suites, private Kashmiri houseboats, and snow-dusted hill retreats curated for two.',
-    thumbnail: 'https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=800&q=80',
+    thumbnail: '/images/categories/honeymoon-himalayas.jpg',
   },
 ];
 
@@ -275,8 +275,8 @@ export const DESTINATIONS: Destination[] = [
     categoryTags: ['heritage'],
     tagline: 'The Blue City & the Mighty Mehrangarh Cliff Citadel',
     description: 'Indigo-washed houses clustered beneath the towering sheer ramparts of Mehrangarh Fort, with bustling spice bazaars and desert royalty.',
-    heroImage: 'https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&w=1600&q=85',
-    thumbnail: 'https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&w=600&q=80',
+    heroImage: '/images/destinations/jodhpur.jpg',
+    thumbnail: '/images/destinations/jodhpur.jpg',
     bestTime: 'October to March',
     idealDuration: '2 to 3 Days',
     highlights: ['Mehrangarh Fort Ramparts', 'Jaswant Thada Marble Memorial', 'Blue City Heritage Walk', 'Umaid Bhawan Palace'],
@@ -289,8 +289,8 @@ export const DESTINATIONS: Destination[] = [
     categoryTags: ['heritage'],
     tagline: 'The Golden City: Living Sandstone Fort & Thar Desert Dunes',
     description: 'Rising from the golden sands of the Thar Desert, Jaisalmer features a living medieval fort, delicate stone filigree jharokhas, and luxury desert glamping.',
-    heroImage: 'https://images.unsplash.com/photo-1598890777032-bde835ba27c2?auto=format&fit=crop&w=1600&q=85',
-    thumbnail: 'https://images.unsplash.com/photo-1598890777032-bde835ba27c2?auto=format&fit=crop&w=600&q=80',
+    heroImage: '/images/destinations/jaisalmer.jpg',
+    thumbnail: '/images/destinations/jaisalmer.jpg',
     bestTime: 'October to March',
     idealDuration: '2 to 3 Days',
     highlights: ['Golden Fort (Sonar Qila)', 'Patwon Ki Haveli Filigree', 'Sam Sand Dunes Camel Safari', 'Desert Starlit Glamping'],
@@ -545,7 +545,7 @@ export const PACKAGES: PackageTour[] = [
     primaryDestinationTags: ['Delhi', 'Agra'],
     categories: ['heritage'],
     summary: 'An extended Mughal heritage circuit incorporating Akbar’s ghost city of Fatehpur Sikri, with leisurely pacing in both imperial capitals.',
-    heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1600&q=85',
+    heroImage: '/images/packages/fatehpur-sikri-monument.jpg',
     highlightTags: ['Fatehpur Sikri', 'Buland Darwaza', 'Taj Mahal at Sunrise', 'Akshardham'],
     featured: false,
     operationalNotes: [
@@ -629,7 +629,7 @@ export const PACKAGES: PackageTour[] = [
     primaryDestinationTags: ['Delhi', 'Agra', 'Mathura', 'Vrindavan'],
     categories: ['spiritual', 'heritage'],
     summary: 'A spiritually enriching journey blending Braj Bhoomi holy temples of Lord Krishna with Mughal architectural wonders.',
-    heroImage: 'https://images.unsplash.com/photo-1621847468516-1ed5d0df56fe?auto=format&fit=crop&w=1600&q=85',
+    heroImage: '/images/packages/mathura-krishna-temple.jpg',
     highlightTags: ['Krishna Janmabhoomi', 'Prem Mandir Vrindavan', 'Taj Mahal Sunset', 'Akshardham'],
     featured: true,
     operationalNotes: [
@@ -1585,7 +1585,7 @@ export const TESTIMONIALS = [
     location: 'Mumbai',
     trip: 'Golden Triangle Tour (6D/5N), October 2025',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+    avatar: '/images/testimonials/doodle-couple.jpg',
   },
   {
     id: '2',
@@ -1594,7 +1594,7 @@ export const TESTIMONIALS = [
     location: 'Bengaluru',
     trip: 'Delhi, Haridwar & Rishikesh Spiritual Circuit, December 2025',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
+    avatar: '/images/testimonials/doodle-solo.jpg',
   },
   {
     id: '3',
@@ -1603,7 +1603,7 @@ export const TESTIMONIALS = [
     location: 'New Delhi',
     trip: 'Kashmir Honeymoon Special, January 2026',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+    avatar: '/images/testimonials/doodle-traveler.jpg',
   },
 ];
 
