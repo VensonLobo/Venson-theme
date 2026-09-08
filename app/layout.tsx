@@ -16,6 +16,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://lobotravels.com'),
   title: 'Lobo Travels | Curated Journeys & Bespoke Tours Across India',
   description:
     'Lobo Travels designs bespoke private journeys across India. Tailored luxury and heritage itineraries in Delhi, Agra, Rajasthan, Himachal, Kashmir, and Sacred Garhwal.',
@@ -45,6 +46,14 @@ export const metadata: Metadata = {
     description:
       'Curated journeys crafted around you. From the Golden Triangle to high Himalayan passes.',
   },
+  icons: {
+    icon: [
+      { url: '/favicon.png', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    shortcut: '/favicon.png',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({
@@ -54,6 +63,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${playfair.variable} ${jakarta.variable} scroll-smooth`}>
+      <head>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      </head>
       <body className="font-sans bg-[#F7F5F2] text-[#0A1128] antialiased selection:bg-[#C5A059] selection:text-white" suppressHydrationWarning>
         {children}
       </body>

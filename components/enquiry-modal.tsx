@@ -246,15 +246,6 @@ function EnquiryModalForm({
         <div>
           {/* Header */}
           <div className="mb-4 pr-6">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-[10px] uppercase tracking-[0.25em] font-bold text-[#C5A059]">
-                Lobo Travels Concierge
-              </span>
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] text-emerald-700 font-semibold tracking-wide">
-                Live Support
-              </span>
-            </div>
             <h3 className="text-xl sm:text-2xl font-serif italic text-[#0A1128] leading-snug">
               {defaultPackageName ? `Enquire: ${defaultPackageName}` : 'Plan Your Bespoke Journey'}
             </h3>
@@ -301,20 +292,8 @@ function EnquiryModalForm({
             <div className="space-y-4">
               {/* Call Option Card */}
               <div className="border border-stone-200 p-4 bg-white hover:border-[#C5A059] transition-all">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] uppercase tracking-widest font-bold text-stone-500 flex items-center gap-1.5">
-                    <Phone className="w-3 h-3 text-[#C5A059]" />
-                    Option A: Direct Telephone Call
-                  </span>
-                  <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                    Live Support
-                  </span>
-                </div>
-                <p className="text-sm font-bold text-[#0A1128] mb-0.5">
+                <p className="text-sm font-bold text-[#0A1128] mb-3">
                   Lobo Travels Senior Concierge Desk
-                </p>
-                <p className="text-xs text-stone-500 mb-3">
-                  Mandir Marg, New Delhi • 9:00 AM – 9:00 PM IST (Mon – Sun)
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <a
@@ -338,20 +317,8 @@ function EnquiryModalForm({
 
               {/* WhatsApp Option Card */}
               <div className="border border-emerald-200 p-4 bg-emerald-50/20 hover:border-emerald-500 transition-all">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] uppercase tracking-widest font-bold text-emerald-800 flex items-center gap-1.5">
-                    <MessageCircle className="w-3 h-3 text-[#25D366]" />
-                    Option B: WhatsApp Chat
-                  </span>
-                  <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-full">
-                    Replies in ~3 mins
-                  </span>
-                </div>
-                <p className="text-sm font-bold text-[#0A1128] mb-0.5">
+                <p className="text-sm font-bold text-[#0A1128] mb-3">
                   Instant WhatsApp Travel Concierge
-                </p>
-                <p className="text-xs text-stone-600 mb-3">
-                  Get custom day-by-day itineraries, hotel photos, pricing breakdown, and vehicle options directly on WhatsApp.
                 </p>
 
                 <a
