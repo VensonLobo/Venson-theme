@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "build:static": "NODE_ENV=production NEXT_EXPORT=true next build && cp -rf out/* .",
+    "build": "next build && cp -rf out/* .",
+    "build:static": "next build && cp -rf out/* .",
     "start": "next start",
     "lint": "eslint ."
   },
