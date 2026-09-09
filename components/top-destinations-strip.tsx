@@ -112,7 +112,7 @@ export function TopDestinationsStrip() {
 
                   <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
                     <span className="text-[10px] uppercase tracking-wider text-stone-400 font-semibold">
-                      {dest.bestTime.split('&')[0].trim()}
+                      Curated Tour
                     </span>
                     <Link
                       href={`/destinations/${dest.slug}`}

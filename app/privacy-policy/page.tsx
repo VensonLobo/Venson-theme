@@ -7,6 +7,9 @@ import { COMPANY_DETAILS } from '@/lib/data';
 export const metadata: Metadata = {
   title: 'Privacy Policy | Lobo Travels',
   description: 'Privacy Policy and client data protection standards of Lobo Travels, New Delhi.',
+  alternates: {
+    canonical: 'https://lobotravels.com/privacy-policy/',
+  },
 };
 
 export default function PrivacyPolicyPage() {

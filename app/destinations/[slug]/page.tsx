@@ -42,9 +42,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${dest.name} Tour Packages & Bespoke Private Itineraries | Lobo Travels`,
     description: `Discover curated journeys to ${dest.name}, ${dest.region}. ${dest.tagline} Private chauffeur, audited stays, and 24x7 concierge support by Lobo Travels.`,
+    alternates: {
+      canonical: `https://lobotravels.com/destinations/${slug}/`,
+    },
     openGraph: {
       title: `${dest.name} Private Tour Packages | Lobo Travels`,
       description: dest.tagline,
+      url: `https://lobotravels.com/destinations/${slug}/`,
       images: [{ url: dest.heroImage }],
     },
   };

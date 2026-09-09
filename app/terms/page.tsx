@@ -7,6 +7,9 @@ import { COMPANY_DETAILS } from '@/lib/data';
 export const metadata: Metadata = {
   title: 'Terms & Conditions | Lobo Travels',
   description: 'Booking terms, payment milestones, and cancellation policies of Lobo Travels, New Delhi.',
+  alternates: {
+    canonical: 'https://lobotravels.com/terms/',
+  },
 };
 
 export default function TermsPage() {

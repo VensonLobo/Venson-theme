@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { Destination, PackageTour } from '@/lib/data';
 import { EnquiryModal } from '@/components/enquiry-modal';
 import {
-  Calendar,
   Clock,
   Sparkles,
   ArrowRight,
@@ -58,23 +57,9 @@ export function DestinationDetailClient({
               </p>
             </div>
 
-            {/* Travel Essentials Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-stone-100">
-              <div className="flex items-start gap-3 p-4 rounded-xl bg-[#FAF8F5] border border-stone-200/70">
-                <div className="p-2 rounded-lg bg-[#C59B27]/15 text-[#C59B27] flex-shrink-0">
-                  <Calendar className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="block text-xs font-bold uppercase tracking-wider text-stone-500">
-                    Ideal Visiting Season
-                  </span>
-                  <span className="text-sm font-semibold text-stone-800">
-                    {destination.bestTime}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 p-4 rounded-xl bg-[#FAF8F5] border border-stone-200/70">
+            {/* Travel Essentials */}
+            <div className="pt-4 border-t border-stone-100">
+              <div className="flex items-start gap-3 p-4 rounded-xl bg-[#FAF8F5] border border-stone-200/70 max-w-md">
                 <div className="p-2 rounded-lg bg-[#C59B27]/15 text-[#C59B27] flex-shrink-0">
                   <Clock className="w-5 h-5" />
                 </div>

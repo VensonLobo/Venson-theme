@@ -17,6 +17,9 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://lobotravels.com'),
+  alternates: {
+    canonical: 'https://lobotravels.com/',
+  },
   title: 'Lobo Travels | Curated Journeys & Bespoke Tours Across India',
   description:
     'Lobo Travels designs bespoke private journeys across India. Tailored luxury and heritage itineraries in Delhi, Agra, Rajasthan, Himachal, Kashmir, and Sacred Garhwal.',
