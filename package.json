@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/ensure-gtm.mjs && rm -rf _next && cp -rf out/* .",
-    "build:static": "next build && node scripts/ensure-gtm.mjs && rm -rf _next && cp -rf out/* .",
+    "build": "next build && rm -rf _next && cp -rf out/* . && node scripts/ensure-gtm.mjs",
+    "build:static": "next build && rm -rf _next && cp -rf out/* . && node scripts/ensure-gtm.mjs",
     "start": "next start",
     "lint": "eslint ."
   },

@@ -52,4 +52,7 @@ function walkDir(dir) {
 }
 
 walkDir('out');
-console.log('GTM injection complete for out/ directory.');
+if (fs.existsSync('index.html')) {
+  processHtmlFile('index.html');
+}
+console.log('GTM injection complete.');
