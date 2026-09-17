@@ -18,6 +18,11 @@ Options -Indexes
   # Fixes Google Search Console: Not found (404) on https://lobotravels.com/feed/
   RewriteRule ^feed(/.*)?$ https://lobotravels.com/ [R=301,L]
 
+  # 2b. Explicit fallback for robots.txt and sitemap.xml (prevents 404 in Google Search Console)
+  RewriteCond %{REQUEST_URI} ^/(robots\.txt|sitemap\.xml)$
+  RewriteCond %{DOCUMENT_ROOT}/public/$1 -f
+  RewriteRule ^(robots\.txt|sitemap\.xml)$ /public/$1 [L]
+
   # 3. Enforce trailing slash on directories / pages to prevent duplicate content without canonical
   # Fixes Google Search Console: Duplicate without user-selected canonical
   RewriteCond %{REQUEST_FILENAME} !-f
